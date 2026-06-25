@@ -27,7 +27,9 @@ Skills live at the **project level** — installed as a submodule so the whole t
 git submodule add https://github.com/<you>/skills .skills
 ```
 
-Then run `/setup` to pick which skills to install. It reads your existing `AGENTS.md` and symlinks selected skills into `.claude/skills/`.
+Then run `/setup` to pick which skills to install. It reads your existing `AGENTS.md` and **copies** selected skills into `.claude/skills/` — giving you a local version you can freely modify per project.
+
+To update a skill to the latest from the submodule: `/setup --update <name>` (or `--update all`).
 
 ## AGENTS.md
 

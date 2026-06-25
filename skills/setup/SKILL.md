@@ -30,11 +30,13 @@ Available skills (.skills/skills/):
 
 Ask the user which skills to add. Accept a list (e.g. "ideate, prd, breakdown") or "all". Existing installs are skipped unless the user says to reinstall.
 
-### 4. Symlink selected skills
+### 4. Copy selected skills
 
 ```bash
 mkdir -p .claude/skills
-ln -sf "../../.skills/skills/<name>" ".claude/skills/<name>"
+cp -r .skills/skills/<name> .claude/skills/<name>
 ```
 
-Report each skill linked and its resolved path.
+Copy, not symlink — so each skill can be modified freely for this project without touching the submodule source.
+
+Report each skill copied. If a skill already exists in `.claude/skills/`, skip it unless the user passed `--update <name>` or `--update all`, in which case overwrite with the latest from the submodule.
