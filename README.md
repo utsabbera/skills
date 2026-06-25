@@ -21,7 +21,7 @@ Dev workflow skills for Claude Code and Antigravity. Adapted from [mattpocock/sk
 ## Install
 
 ```bash
-npx skills add <your-github-username>/skills
+npx skills add utsabbera/skills
 ```
 
 Works with Claude Code, Antigravity, Codex, Cursor, and [70+ agents](https://skills.sh). No registration required — any public GitHub repo works.
@@ -29,19 +29,19 @@ Works with Claude Code, Antigravity, Codex, Cursor, and [70+ agents](https://ski
 Installs to the project by default (`.claude/skills/`). Use `-g` for global (`~/.claude/skills/`):
 
 ```bash
-npx skills add <your-github-username>/skills -g
+npx skills add utsabbera/skills -g
 ```
 
 Pick specific skills with `--skill`, or install all:
 
 ```bash
-npx skills add <your-github-username>/skills --skill tdd --skill review --skill commit
+npx skills add utsabbera/skills --skill tdd --skill review --skill commit
 ```
 
 Use `--copy` if you want to modify skills locally (otherwise symlinked):
 
 ```bash
-npx skills add <your-github-username>/skills --copy
+npx skills add utsabbera/skills --copy
 ```
 
 ## AGENTS.md
