@@ -37,7 +37,10 @@ EOF
 )"
 ```
 
-Infer issue number from branch name (`git branch --show-current`) and append `Closes #N` when found.
+Infer issue number in this order:
+1. Conversation context — if an issue number was mentioned during this session, use it
+2. Branch name — check `git branch --show-current` for a pattern like `123-feature-name` or `issue/123`
+3. If neither found, omit the footer — do not guess
 
 Do NOT add Co-Authored-By or attribution lines.
 
