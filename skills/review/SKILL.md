@@ -22,9 +22,9 @@ Confirm the diff is non-empty before spawning sub-agents.
 ### 2. Find the spec
 
 Look in this order:
-1. Issue refs in branch name or recent commits (`#N`, `Closes #N`) — fetch with `gh issue view <N>`
-2. A path passed as argument
-3. A PRD file under `docs/prd/` matching the branch or feature name
+1. A path passed as argument
+2. A PRD file under `docs/prd/` matching the branch or feature name
+3. Issue refs in conversation context, branch name, or recent commits (`#N`, `Closes #N`) — fetch with `gh issue view <N>` and use the issue body as the spec
 4. If nothing found, the Spec sub-agent reports "no spec available"
 
 ### 3. Find the standards

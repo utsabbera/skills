@@ -15,6 +15,8 @@ Dev workflow skills for Claude Code and Antigravity. Adapted from [mattpocock/sk
 | `/research`  | Quick focused lookup — codebase patterns, library APIs, where something is defined      |
 | `/wrap`      | End-of-session sync — update memory, skill files, CLAUDE.md, and GitHub issue states    |
 | `/commit`    | Stage and commit with a well-crafted conventional commit message                        |
+| `/debug`     | Systematic diagnosis and fix — triage, root cause, test-first fix                       |
+| `/pr`        | Commit, push, and open a GitHub PR with a well-crafted description                      |
 
 ## Install
 

@@ -24,6 +24,8 @@ RIGHT: test1 → impl1 → test2 → impl2 → test3 → impl3
 
 If `$ARGUMENTS` contains a GitHub issue number or URL, fetch acceptance criteria with `gh issue view <N>`.
 
+If no argument is given, run `gh issue list --state open` and present unblocked issues. Ask the user which to work on.
+
 - Confirm the public interface changes needed
 - List the behaviors to test (not implementation steps)
 - Get user approval on the plan
