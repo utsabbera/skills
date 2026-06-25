@@ -1,5 +1,5 @@
 ---
-name: brainstorm
+name: ideate
 description: Stress-test a plan or idea through relentless Socratic dialogue. Use when the user wants to challenge assumptions before committing to a direction, or says "grill me", "stress-test this", "poke holes", or "think through".
 ---
 
