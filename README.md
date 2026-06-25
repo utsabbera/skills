@@ -20,28 +20,28 @@ Dev workflow skills for Claude Code and Antigravity. Adapted from [mattpocock/sk
 
 ## Install
 
-### Claude Code
-
-Add to your `~/.claude/settings.json`:
-
-```json
-{
-  "marketplaces": [
-    { "name": "skills", "source": "<your-github-username>/skills" }
-  ]
-}
+```bash
+npx skills add <your-github-username>/skills
 ```
 
-Then install:
+Works with Claude Code, Antigravity, Codex, Cursor, and [70+ agents](https://skills.sh). No registration required — any public GitHub repo works.
 
-```
-/plugin install skills
-```
-
-### Antigravity
+Installs to the project by default (`.claude/skills/`). Use `-g` for global (`~/.claude/skills/`):
 
 ```bash
-/plugin install github:<your-github-username>/skills
+npx skills add <your-github-username>/skills -g
+```
+
+Pick specific skills with `--skill`, or install all:
+
+```bash
+npx skills add <your-github-username>/skills --skill tdd --skill review --skill commit
+```
+
+Use `--copy` if you want to modify skills locally (otherwise symlinked):
+
+```bash
+npx skills add <your-github-username>/skills --copy
 ```
 
 ## AGENTS.md
