@@ -24,12 +24,10 @@ Skills live at the **project level** — installed as a submodule so the whole t
 ## Install
 
 ```bash
-git submodule add https://github.com/<you>/skills .skills
+git clone https://github.com/<you>/skills
 ```
 
-Then run `/setup` to pick which skills to install. It reads your existing `AGENTS.md` and **copies** selected skills into `.claude/skills/` — giving you a local version you can freely modify per project.
-
-To update a skill to the latest from the submodule: `/setup --update <name>` (or `--update all`).
+Then run `/setup` from your project — point it at the cloned repo, pick which skills to copy, and it drops them into `.claude/skills/`. Modify them freely per project. To update a skill, re-run `/setup --update <name>` and point at the repo again.
 
 ## AGENTS.md
 

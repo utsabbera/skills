@@ -1,17 +1,17 @@
 ---
 name: setup
-description: Wire up skills for a new project. Run once per project after adding the skills submodule. Reads existing AGENTS.md, lets the user pick which skills to install, and symlinks them into .claude/skills/.
+description: Copy selected skills into .claude/skills/ for this project. Run once per project, pointing at a local clone of the skills repo. Reads existing AGENTS.md and lets the user pick which skills to install.
 ---
 
-Wire up selected skills for this project.
+Copy selected skills into this project.
 
 ## Process
 
-### 1. Read AGENTS.md
+### 1. Find the skills source
 
-Read `AGENTS.md` from the repo root. This file is pre-existing — do not create or modify it. Extract the issue tracker type and commands if present; skills will fall back to `gh` if not found.
+If `$ARGUMENTS` contains a path, use it as the skills repo location. Otherwise ask: "Where is your local clone of the skills repo?"
 
-If `.skills/` submodule is missing, tell the user to run `git submodule add <url> .skills` first and stop.
+Read `AGENTS.md` from the current project root — pre-existing, do not modify it. Extract issue tracker config if present; skills fall back to `gh` if absent.
 
 ### 2. Show available skills
 
@@ -34,9 +34,9 @@ Ask the user which skills to add. Accept a list (e.g. "ideate, prd, breakdown") 
 
 ```bash
 mkdir -p .claude/skills
-cp -r .skills/skills/<name> .claude/skills/<name>
+cp -r <skills-repo>/skills/<name> .claude/skills/<name>
 ```
 
-Copy, not symlink — so each skill can be modified freely for this project without touching the submodule source.
+Copy, not symlink — each skill is now owned by this project and can be modified freely.
 
-Report each skill copied. If a skill already exists in `.claude/skills/`, skip it unless the user passed `--update <name>` or `--update all`, in which case overwrite with the latest from the submodule.
+Skip skills that already exist in `.claude/skills/` unless the user passed `--update <name>` or `--update all`, in which case overwrite from the source repo.
