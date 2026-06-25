@@ -1,86 +1,40 @@
 ---
 name: setup
-description: Initialize AGENTS.md and wire up skills for a new project. Run once per project after adding the skills submodule. Configures issue tracker, test command, and commit conventions.
+description: Wire up skills for a new project. Run once per project after adding the skills submodule. Reads existing AGENTS.md, lets the user pick which skills to install, and symlinks them into .claude/skills/.
 ---
 
-Initialize this project for use with the skills workflow.
+Wire up selected skills for this project.
 
 ## Process
 
-### 1. Check existing state
+### 1. Read AGENTS.md
 
-- If `AGENTS.md` already exists, read it and ask whether to update or skip.
-- Check if `.skills/` submodule is present; if not, note that the user should run `git submodule add <url> .skills` first.
+Read `AGENTS.md` from the repo root. This file is pre-existing — do not create or modify it. Extract the issue tracker type and commands if present; skills will fall back to `gh` if not found.
 
-### 2. Detect what you can
+If `.skills/` submodule is missing, tell the user to run `git submodule add <url> .skills` first and stop.
 
-Before asking, infer from the repo:
-- **Issue tracker**: check for `.github/` (→ GitHub), `jira.config.*` or `atlassian` in deps (→ Jira), `linear` references (→ Linear)
-- **Test command**: check `package.json` scripts, `Makefile`, `pyproject.toml`, `Justfile`
-- **Commit convention**: read recent `git log --oneline -10` to detect pattern
+### 2. Show available skills
 
-### 3. Confirm with the user
+List all skills in `.skills/skills/` with a one-line description of each. Check `.claude/skills/` for already-installed ones and mark them.
 
-Present what you detected and ask for corrections. One question at a time:
-
-1. **Issue tracker** — `github` / `jira` / `linear` / other
-2. **Tracker-specific config** — for Jira: project key + base URL; for Linear: team key; for GitHub: nothing extra
-3. **Test command** — e.g. `pnpm test`, `make test`, `pytest`
-4. **Commit convention** — `conventional-commits` / `repo-style` (inferred from history) / other
-
-### 4. Write AGENTS.md
-
-Write to `AGENTS.md` in the repo root using the template below. Do not overwrite sections the user said to skip.
-
-<agents-template>
-## Issue Tracker
-type: <github|jira|linear>
-
-## Issue Tracker Commands
-create: <command to create an issue — use $TITLE, $BODY, $LABEL as placeholders>
-view: <command to view issue $ID>
-close: <command to close issue $ID>
-list: <command to list open issues>
-
-## Test Command
-test: <test command>
-
-## Commit Convention
-convention: <conventional-commits|repo-style>
-</agents-template>
-
-**GitHub example:**
 ```
-create: gh issue create --title "$TITLE" --body "$BODY" --label "$LABEL"
-view:   gh issue view $ID
-close:  gh issue close $ID
-list:   gh issue list --state open
+Available skills (.skills/skills/):
+  [ ] ideate    — stress-test a plan through Socratic dialogue
+  [x] tdd       — implement a feature test-first (already installed)
+  [ ] prd       — write a PRD to docs/prd/
+  [ ] breakdown — break a PRD into issues
+  ...
 ```
 
-**Jira example:**
-```
-create: jira issue create --project $PROJECT --summary "$TITLE" --description "$BODY"
-view:   jira issue view $ID
-close:  jira issue transition $ID "Done"
-list:   jira issue list --project $PROJECT --status "To Do"
-```
+### 3. Ask which to install
 
-**Linear example:**
-```
-create: linear issue create --title "$TITLE" --description "$BODY" --team $TEAM
-view:   linear issue view $ID
-close:  linear issue update $ID --state "Done"
-list:   linear issue list --team $TEAM --state "Todo"
-```
+Ask the user which skills to add. Accept a list (e.g. "ideate, prd, breakdown") or "all". Existing installs are skipped unless the user says to reinstall.
 
-### 5. Symlink skills
+### 4. Symlink selected skills
 
 ```bash
 mkdir -p .claude/skills
-for skill in .skills/skills/*/; do
-  name=$(basename "$skill")
-  ln -sf "../../$skill" ".claude/skills/$name"
-done
+ln -sf "../../.skills/skills/<name>" ".claude/skills/<name>"
 ```
 
-Report which skills were linked. Confirm `AGENTS.md` was written.
+Report each skill linked and its resolved path.
