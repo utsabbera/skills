@@ -2,13 +2,10 @@
 
 Dev workflow skills for Claude Code and Antigravity. Adapted from [mattpocock/skills](https://github.com/mattpocock/skills) and [EveryInc/compound-engineering-plugin](https://github.com/EveryInc/compound-engineering-plugin).
 
-Skills live at the **project level** — installed as a submodule so the whole team (and all agents) gets them on clone, versioned with the project, and adapted per-project via the existing `AGENTS.md`.
-
 ## Skills
 
 | Skill        | Description                                                                        |
 | ------------ | ---------------------------------------------------------------------------------- |
-| `/setup`     | Pick which skills to install and symlink them into `.claude/skills/`               |
 | `/ideate`    | Stress-test a plan through Socratic dialogue before committing to a direction      |
 | `/prd`       | Synthesize the conversation into a PRD and write it to `docs/prd/`                |
 | `/breakdown` | Break a PRD or feature into vertical-slice issues                                  |
@@ -23,15 +20,33 @@ Skills live at the **project level** — installed as a submodule so the whole t
 
 ## Install
 
-```bash
-git clone https://github.com/<you>/skills
+### Claude Code
+
+Add to your `~/.claude/settings.json`:
+
+```json
+{
+  "marketplaces": [
+    { "name": "skills", "source": "<your-github-username>/skills" }
+  ]
+}
 ```
 
-Then run `/setup` from your project — point it at the cloned repo, pick which skills to copy, and it drops them into `.claude/skills/`. Modify them freely per project. To update a skill, re-run `/setup --update <name>` and point at the repo again.
+Then install:
+
+```
+/plugin install skills
+```
+
+### Antigravity
+
+```bash
+/plugin install github:<your-github-username>/skills
+```
 
 ## AGENTS.md
 
-Skills read your project's existing `AGENTS.md` to adapt to the project's tooling. Add these keys to enable full integration:
+Skills read your project's `AGENTS.md` to adapt to its tooling. Add these keys for full integration:
 
 ```md
 ## Issue Tracker Commands
@@ -44,4 +59,4 @@ list:   gh issue list --state open
 test: pnpm test
 ```
 
-Supported trackers out of the box: `gh` (GitHub), `jira`, `linear`. Skills fall back to `gh` if these keys are absent.
+Skills fall back to `gh` if these keys are absent. Supported trackers: GitHub, Jira, Linear.
