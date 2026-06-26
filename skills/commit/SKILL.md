@@ -14,7 +14,7 @@ If the working tree is clean, report nothing to commit and stop.
 ### 2. Determine commit message convention
 
 Priority order:
-1. `CLAUDE.md` or `AGENTS.md` — if commit conventions are documented, follow them
+1. `README.md` or `AGENTS.md` — if commit conventions are documented, follow them
 2. Recent commit history — if a clear pattern emerges (conventional commits, ticket prefixes), match it
 3. Default: conventional commits — `type(scope): description` where type is `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `perf`
 
